@@ -1,0 +1,7 @@
+uint32 codec 5
+float gain 1
+bool islooped true
+key musicTemplate music_base
+keys samples
+	bad_apple
+end
