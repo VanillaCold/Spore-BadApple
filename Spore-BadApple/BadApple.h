@@ -26,7 +26,7 @@ public:
 
 	static int8_t GetPixel(int x, int y);
 	static bool SetImage(uint32_t index);
-	static Graphics::cImageDataRaw* currentImage;
+	static cImageDataRawPtr currentImage;
 
 	static vector<vector<IVisualEffectPtr>> images;
 	static IVisualEffectPtr musicEffect;

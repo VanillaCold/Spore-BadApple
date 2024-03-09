@@ -49,12 +49,10 @@ int8_t BadApple::GetPixel(int x, int y)
 	int8_t* imageData;
 	int w = 0, h = 0;
 	currentImage->GetData(w, h, imageData);
-	//if (x < w && y < h)
-	//{
-	return imageData[x + (w * y)];
-	//}
-
-	//return 1;
+	
+	auto test = imageData[x + (w * y)];
+	return test;
+	
 }
 
 bool BadApple::SetImage(uint32_t index)
@@ -65,9 +63,7 @@ bool BadApple::SetImage(uint32_t index)
 	ResourceObjectPtr image;
 	if (ResourceManager.GetResource(key, &image))
 	{
-		Graphics::cImageDataRaw* rawImage = (Graphics::cImageDataRaw*)image.get();
-
-		//ModAPI::Log("Got an image!");
+		cImageDataRawPtr rawImage = (Graphics::cImageDataRaw*)image.get();
 		currentImage = rawImage;
 		
 		fileCount = index;
@@ -79,12 +75,10 @@ bool BadApple::SetImage(uint32_t index)
 				{
 					uint8_t pixel = GetPixel((360/2)-(i), (j));
 					float test = Math::min_(float(pixel / float(0xFF)),1.0f);
-					ColorRGBA test2 = ColorRGBA(test, test, test, 1);
-					images[i][j]->SetFloatParams(Swarm::FloatParams::kParamTransparency, new float(test), 1);
+					images[i][j]->SetFloatParams(Swarm::FloatParams::kParamTransparency, &test, 1);
 				}
 			}
 		}
-		//delete oldImage;
 
 		return true;
 		
@@ -132,6 +126,6 @@ void BadApple::StartVideo()
 
 vector<vector<IVisualEffectPtr>> BadApple::images;
 IVisualEffectPtr BadApple::musicEffect;
-Graphics::cImageDataRaw* BadApple::currentImage;
+cImageDataRawPtr BadApple::currentImage;
 bool BadApple::mbIsStarted;
 uint32_t BadApple::fileCount;
